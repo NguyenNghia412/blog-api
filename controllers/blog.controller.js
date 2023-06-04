@@ -53,8 +53,22 @@ const getPagingBlog = async (req, res, next) => {
  */
 const getBlog = async (req, res, next) => {
     try {
-        console.log('REQ => ', req.params);
         const data = await blogServices.getBlog(req.params);
+        res.status(200).json(data);
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**
+ * XOÁ MỀM BLOG
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+const deleteBlog = async (req, res, next) => {
+    try {
+        const data = await blogServices.deleteBlog(req.params);
         res.status(200).json(data);
     } catch (error) {
         next(error);
@@ -67,4 +81,5 @@ module.exports = {
     getPagingBlog,
     getBlog,
     updateBlog,
+    deleteBlog,
 }

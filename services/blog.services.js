@@ -39,6 +39,11 @@ const getPagingBlog = async ({pageNumber, pageSize, keyword}) => {
                 $and: [
                     {deleted: false}
                 ]
+            },
+        },
+        {
+            $sort: {
+                createdDate: -1
             }
         },
         {
@@ -83,7 +88,20 @@ const updateBlog = async({ id, title, content, summary, category, thumbnail, tag
         thumbnail,
         tags,
         category,
-    })
+    }).exec();
+
+    return blog;
+}
+
+/**
+ * XOÁ MỀM BLOG
+ * @param {*} param0 
+ * @returns 
+ */
+const deleteBlog = async({ id }) => {
+    const blog = await Blog.findOne({ id, deleted: false }).updateOne({
+        deleted: true
+    }).exec();
 
     return blog;
 }
@@ -92,5 +110,6 @@ module.exports = {
     createBlog,
     updateBlog,
     getPagingBlog,
-    getBlog
+    getBlog,
+    deleteBlog,
 }

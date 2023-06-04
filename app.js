@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // log morgan
-morgan('dev');
+app.use(morgan('dev'));
 
 // connect db
 mongoose.connect(connectionString).then(res => {
@@ -33,6 +33,7 @@ passport.use(jwtPassport);
 app.use(passport.initialize());
 
 // route
+app.use(routes.healthRoutes);
 app.use(routes.blogRoutes);
 app.use(routes.categoryRoutes);
 app.use(routes.userRoutes);

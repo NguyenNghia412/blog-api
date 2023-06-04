@@ -20,6 +20,17 @@ const addCategory = async ({ name }) => {
     return data;
 }
 
+/**
+ * LẤY HẾT DANH MỤC
+ * @returns 
+ */
+const getListCategory = async () => {
+    var result = await Category.find({ deleted: false }).sort({ name: 1 }).exec();
+
+    return result;
+}
+
 module.exports = {
-    addCategory
+    addCategory,
+    getListCategory
 };
